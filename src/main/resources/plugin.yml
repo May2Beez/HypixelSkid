@@ -1,0 +1,19 @@
+name: HypixelSkid
+version: '${project.version}'
+main: me.may2beez.hypixelskid.HypixelSkid
+commands:
+  setSpeed:
+    description: Sets the speed of the player
+    usage: /setSpeed <speed>
+  rotate:
+    description: Rotates the player
+    usage: /rotate <player> <yaw> <pitch>
+  giveAotv:
+    description: Gives the player an Aspect of the Void
+    usage: /giveAotv
+  warp:
+    description: Warps the player to a location
+    usage: /warp <location>
+  killAll:
+    description: Kills all entities in the world
+    usage: /killAll
