@@ -23,11 +23,13 @@ public final class HypixelSkid extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new AspectOfTheVoid_item(), this);
         getServer().getPluginManager().registerEvents(new GhostRespawner_listener(), this);
         getServer().getPluginManager().registerEvents(new UpdateScoreboard_listener(), this);
+        getServer().getPluginManager().registerEvents(new cloneCheck_command(), this);
         getCommand("setspeed").setExecutor(new setSpeed_command());
         getCommand("rotate").setExecutor(new rotate_command());
         getCommand("giveAotv").setExecutor(new giveAotv_command());
         getCommand("warp").setExecutor(new warp_command());
         getCommand("killAll").setExecutor(new killAll_command());
+        getCommand("cloneCheck").setExecutor(new cloneCheck_command());
 
         // listeners
         GhostRespawner_listener.onEnable();

@@ -17,3 +17,6 @@ commands:
   killAll:
     description: Kills all entities in the world
     usage: /killAll
+  cloneCheck:
+    description: Staff check simulation with usage of clone
+    usage: /cloneCheck

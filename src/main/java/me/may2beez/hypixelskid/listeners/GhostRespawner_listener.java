@@ -2,6 +2,7 @@ package me.may2beez.hypixelskid.listeners;
 
 import javafx.util.Pair;
 import me.may2beez.hypixelskid.HypixelSkid;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -47,7 +48,7 @@ public class GhostRespawner_listener implements Listener {
             Creeper creeper = (Creeper) event.getEntity();
             creeper.setHealth(1); // Set the creeper's health to 1
             creeper.setPowered(true);
-        } else {
+        } else if (!(event.getEntity() instanceof EntityPlayer)) {
             event.setCancelled(true); // Cancel the spawn event
         }
     }
