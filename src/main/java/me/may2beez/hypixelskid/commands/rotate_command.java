@@ -1,5 +1,6 @@
 package me.may2beez.hypixelskid.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,11 +10,6 @@ import org.bukkit.entity.Player;
 public class rotate_command implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Only players can use this command.");
-            return true;
-        }
-
         // Check the number of arguments
         if (args.length != 3) {
             sender.sendMessage("Usage: /rotate <playerName> <yawChange> <pitchChange>");
@@ -32,7 +28,7 @@ public class rotate_command implements CommandExecutor {
         }
 
         // Get the player
-        Player player = sender.getServer().getPlayer(args[0]);
+        Player player = Bukkit.getPlayer(args[0]);
 
         // Calculate the new yaw and pitch values
         float newYaw = player.getLocation().getYaw() + yawChange;

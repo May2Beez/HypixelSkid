@@ -1,5 +1,6 @@
 package me.may2beez.hypixelskid.items;
 
+import net.minecraft.server.v1_8_R3.BlockAir;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
+import java.util.Collections;
 import java.util.Set;
 
 public class AspectOfTheVoid_item implements Listener {
@@ -38,18 +40,22 @@ public class AspectOfTheVoid_item implements Listener {
         if (item != null && item.getType() == Material.DIAMOND_SPADE && item.hasItemMeta()
                 && item.getItemMeta().getDisplayName().equals("Aspect of the Void")) {
             if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-                Location loc1 = player.getLocation();
-                player.getWorld().playSound(loc1, Sound.ENDERMAN_TELEPORT, 3, 1);
-                Block b = player.getTargetBlock((Set<Material>)null, player.isSneaking() ? 61 : 12);
-                Location loc = null;
-                if (player.isSneaking() && b == null)
-                    return;
-                else if (player.isSneaking()) {
-                    loc = new Location(b.getWorld(), b.getX() + 0.5, b.getY() + 1, b.getZ() + 0.5, player.getLocation().getYaw(), player.getLocation().getPitch());
+                if (!player.isSneaking()) {
+                    Location location = player.getLocation(); //player's location
+                    Vector vector = location.getDirection(); // player's direction
+                    player.getWorld().playSound(location, Sound.ENDERMAN_TELEPORT, 3, 1);
+                    Block b = player.getTargetBlock(Collections.singleton(Material.AIR), 10);
+                    Location loc = new Location(b.getWorld(), b.getX(), b.getY(), b.getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());
+                    if (!(loc.getBlock() instanceof BlockAir))
+                        loc.add(0, 1, 0);
+                    player.teleport(loc);
                 } else {
-                    loc = new Location(b.getWorld(), b.getX(), b.getY(), b.getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());
+                    Location loc1 = player.getLocation();
+                    player.getWorld().playSound(loc1, Sound.ENDERMAN_TELEPORT, 3, 1);
+                    Block b = player.getTargetBlock((Set<Material>) null, 61);
+                    Location loc = new Location(b.getWorld(), b.getX() + 0.5, b.getY() + 0.5, b.getZ() + 0.5, player.getLocation().getYaw(), player.getLocation().getPitch());
+                    player.teleport(loc.add(0, 1, 0));
                 }
-                player.teleport(loc);
             }
         }
     }

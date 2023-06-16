@@ -11,6 +11,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -34,11 +35,6 @@ public class cloneCheck_command implements CommandExecutor, Listener {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("Only players can use this command.");
-            return true;
-        }
-
         if (strings.length != 1) {
             commandSender.sendMessage("Usage: /cloneCheck <playerName>");
             return true;
@@ -46,7 +42,7 @@ public class cloneCheck_command implements CommandExecutor, Listener {
 
         String playerName = strings[0];
 
-        player = ((Player) commandSender).getWorld().getPlayers().stream().filter(p -> p.getName().equals(playerName)).findFirst().orElse(null);
+        player = Bukkit.getPlayer(playerName);
         if (player == null) {
             commandSender.sendMessage("Player not found.");
             return true;

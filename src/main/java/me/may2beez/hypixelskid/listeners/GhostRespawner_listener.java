@@ -1,8 +1,8 @@
 package me.may2beez.hypixelskid.listeners;
 
-import javafx.util.Pair;
 import me.may2beez.hypixelskid.HypixelSkid;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -10,7 +10,6 @@ import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
@@ -27,12 +26,12 @@ public class GhostRespawner_listener implements Listener {
     private static final ArrayList<Pair<Location, ArrayList<Creeper>>> spawnLocations = new ArrayList<>();
 
     public static void onEnable() {
-        spawnLocations.add(new Pair<>(new Location(Bukkit.getWorld("world"), 150, 77, 79), new ArrayList<>()));
-        spawnLocations.add(new Pair<>(new Location(Bukkit.getWorld("world"), 154, 77, 52), new ArrayList<>()));
-        spawnLocations.add(new Pair<>(new Location(Bukkit.getWorld("world"), 130, 77, 61), new ArrayList<>()));
-        spawnLocations.add(new Pair<>(new Location(Bukkit.getWorld("world"), 168, 77, 59), new ArrayList<>()));
-        spawnLocations.add(new Pair<>(new Location(Bukkit.getWorld("world"), 150, 77, 66), new ArrayList<>()));
-        spawnLocations.add(new Pair<>(new Location(Bukkit.getWorld("world"), 154, 77, 79), new ArrayList<>()));
+        spawnLocations.add(Pair.of(new Location(Bukkit.getWorld("world"), 150, 77, 79), new ArrayList<>()));
+        spawnLocations.add(Pair.of(new Location(Bukkit.getWorld("world"), 154, 77, 52), new ArrayList<>()));
+        spawnLocations.add(Pair.of(new Location(Bukkit.getWorld("world"), 130, 77, 61), new ArrayList<>()));
+        spawnLocations.add(Pair.of(new Location(Bukkit.getWorld("world"), 168, 77, 59), new ArrayList<>()));
+        spawnLocations.add(Pair.of(new Location(Bukkit.getWorld("world"), 150, 77, 66), new ArrayList<>()));
+        spawnLocations.add(Pair.of(new Location(Bukkit.getWorld("world"), 154, 77, 79), new ArrayList<>()));
 
         // Start the task to respawn creepers
         startRespawnTask();
@@ -84,10 +83,10 @@ public class GhostRespawner_listener implements Listener {
                         creeper.setMaxHealth(1);
                         nonDeadCreepers.add(creeper);
                         // send info on console that "Spawning creeper at: " + creeper.getLocation().toString()
-                        System.out.println("Spawning creeper at: " + creeper.getLocation().toString() + " in location: " + spawnLocations.indexOf(loc));
+//                        System.out.println("Spawning creeper at: " + creeper.getLocation().toString() + " in location: " + spawnLocations.indexOf(loc));
                     }
                 }
-                spawnLocations.set(spawnLocations.indexOf(loc), new Pair<>(loc.getKey(), nonDeadCreepers));
+                spawnLocations.set(spawnLocations.indexOf(loc), Pair.of(loc.getKey(), nonDeadCreepers));
             }
         }, 0, respawnInterval * 20L); // Convert the delay from seconds to ticks
     }

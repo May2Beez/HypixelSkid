@@ -1,6 +1,5 @@
 package me.may2beez.hypixelskid.helpers;
 
-import com.sun.javafx.geom.Vec3d;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
